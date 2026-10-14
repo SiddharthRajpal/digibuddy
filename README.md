@@ -9,8 +9,18 @@ DigiBuddy is a self-reflection tool, not a medical or diagnostic product.
 
 ## Quick start (Docker)
 
+Install Docker Desktop and open it, then double-click:
+
+- **Windows:** `start.bat` (and `stop.bat`)
+- **Mac:** `start.command` (and `stop.command`). The first time, macOS may block it: right-click it,
+  choose **Open**, then **Open** again. If it says it can't be run, open Terminal in this folder and
+  run `chmod +x *.command` once.
+
+The script builds and starts everything (5-10 minutes the first time), creates the demo account
+once, and opens the app. Or run it by hand:
+
 ```bash
-docker compose up --build
+docker compose up --build -d
 docker compose exec api python -m scripts.seed      # demo data, about a minute
 ```
 
