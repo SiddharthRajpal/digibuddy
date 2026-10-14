@@ -1,0 +1,131 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--sky-tint);
+  box-shadow: var(--shadow-paper);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.stale {
+  font-size: 14px;
+  line-height: 21px;
+  color: var(--ink-soft);
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3);
+  background: var(--paper);
+  border-radius: var(--radius-md);
+}
+
+.tile {
+  position: relative;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 116px;
+  min-height: 100px;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--stroke);
+}
+
+.tileIcon {
+  flex: none;
+}
+
+.rowText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+  flex: 1;
+}
+
+.band {
+  position: relative;
+  display: block;
+  height: 10px;
+  margin-top: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--page-shade);
+}
+
+.bandFill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--sky) 55%, transparent);
+}
+
+.bandDot {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  transform: translateY(-50%);
+  border-radius: var(--radius-pill);
+  background: var(--sky);
+  border: 2px solid var(--stroke);
+}
+
+.reasons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.reasonList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-1);
+}
+
+.compare {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--ink);
+}
+
+.good {
+  color: var(--sprout);
+}
+
+.learn {
+  color: var(--sky);
+}
+
+@media (max-width: 420px) {
+  .tile {
+    width: 88px;
+    height: 80px;
+  }
+  .tile :global(.t-number-xl) {
+    font-size: 44px;
+    line-height: 44px;
+  }
+}

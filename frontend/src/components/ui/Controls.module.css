@@ -1,0 +1,272 @@
+/* Tag chips */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 36px;
+  padding: 6px var(--space-3);
+  border: 2px solid var(--stroke);
+  border-radius: var(--radius-sm);
+  background: var(--page-shade);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+
+.chipOn {
+  background: var(--paper);
+  box-shadow: var(--shadow-paper);
+}
+
+.chipX {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin-right: -6px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--stroke);
+  cursor: pointer;
+}
+
+/* Toggle */
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.toggleLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  cursor: pointer;
+}
+
+.hint {
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.toggle {
+  position: relative;
+  flex: none;
+  width: 52px;
+  height: 30px;
+}
+
+.toggleInput {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--stroke);
+  border-radius: var(--radius-pill);
+  background: var(--page-shade);
+  pointer-events: none;
+  transition: background var(--press-duration) ease-out;
+}
+
+.thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-pill);
+  background: var(--stroke);
+  transition: transform var(--press-duration) ease-out;
+}
+
+.toggleInput:checked + .track {
+  background: var(--sprout);
+}
+
+.toggleInput:checked + .track .thumb {
+  transform: translateX(22px);
+  background: var(--paper);
+}
+
+.toggleInput:focus-visible + .track {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Factor slots */
+.slot {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 2px dashed var(--line);
+  background: var(--page-shade);
+}
+
+.slotFilled {
+  border: 2px solid var(--stroke);
+  background: var(--paper);
+  box-shadow: var(--shadow-paper);
+}
+
+.slotHead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--stroke);
+}
+
+.slotHead span {
+  color: var(--ink);
+}
+
+.slotBody {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-3);
+}
+
+/* Collapsible sections */
+.section {
+  border-top: 1px solid var(--line);
+  padding-block: var(--space-3);
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  cursor: pointer;
+  list-style: none;
+  color: var(--ink);
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary > svg:first-child {
+  color: var(--stroke);
+}
+
+.summaryNote {
+  font-family: var(--font-hand);
+  font-size: 18px;
+  line-height: 20px;
+  color: var(--ink-soft);
+}
+
+.chev {
+  margin-left: auto;
+  color: var(--stroke);
+  transition: transform var(--press-duration) ease-out;
+}
+
+details[open] > .summary .chev {
+  transform: rotate(180deg);
+}
+
+.sectionBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+}
+
+/* Status notes */
+.status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) 0;
+  color: var(--ink-soft);
+}
+
+.dots {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--fur);
+  animation: dot 1.2s ease-in-out infinite;
+}
+
+.dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes dot {
+  0%,
+  80%,
+  100% {
+    opacity: 0.3;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dots span {
+    animation: none;
+    opacity: 0.7;
+  }
+}
+
+.errorNote {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: 2px solid var(--brick);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.retry {
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border: 2px dashed var(--line);
+  border-radius: var(--radius-md);
+  background: var(--page-shade);
+  text-align: center;
+}

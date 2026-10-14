@@ -1,0 +1,174 @@
+.figure {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: var(--paper);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-paper);
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+}
+
+.grid {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.axis {
+  fill: var(--ink-soft);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.band {
+  fill: var(--sky);
+  opacity: 0.28;
+}
+
+.predLine {
+  fill: none;
+  stroke: var(--sky);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.predDot {
+  fill: var(--paper);
+  stroke: var(--sky);
+  stroke-width: 2;
+}
+
+.dot {
+  stroke: var(--stroke);
+  stroke-width: 2;
+}
+
+.annotation {
+  fill: var(--ink);
+  font-family: var(--font-hand);
+  font-size: 18px;
+}
+
+.twinLine {
+  fill: none;
+  stroke: var(--sprout);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.naiveLine {
+  fill: none;
+  stroke: var(--ink-soft);
+  stroke-width: 2;
+  stroke-dasharray: 6 6;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--ink-soft);
+}
+
+.key {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.keyBand {
+  width: 22px;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--sky) 55%, transparent);
+  border: 2px solid var(--sky);
+}
+
+.keyDot {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-pill);
+  background: var(--weather-4);
+  border: 2px solid var(--stroke);
+}
+
+.keyTwin {
+  width: 22px;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--sprout);
+}
+
+.keyNaive {
+  width: 22px;
+  border-top: 2px dashed var(--ink-soft);
+}
+
+.tableWrap summary {
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 21px;
+  font-variant-numeric: tabular-nums;
+}
+
+.table th,
+.table td {
+  padding: 4px var(--space-2);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.table thead th {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.meter {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 220px;
+  height: 220px;
+}
+
+.meterTrack {
+  fill: none;
+  stroke: var(--page-shade);
+  stroke-width: 16;
+}
+
+.meterFill {
+  fill: none;
+  stroke: var(--sprout);
+  stroke-width: 16;
+  stroke-linecap: round;
+}
+
+.meterText {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}

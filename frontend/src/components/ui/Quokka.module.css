@@ -1,0 +1,35 @@
+.quokka {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.img {
+  flex: none;
+  height: auto;
+  object-fit: contain;
+}
+
+.bubble {
+  position: relative;
+  padding: var(--space-3) var(--space-4);
+  background: var(--paper);
+  border: 2px solid var(--stroke);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-paper);
+  color: var(--ink);
+  max-width: 28ch;
+}
+
+.bubble::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  bottom: 14px;
+  width: 14px;
+  height: 14px;
+  background: var(--paper);
+  border-left: 2px solid var(--stroke);
+  border-bottom: 2px solid var(--stroke);
+  transform: rotate(45deg);
+}

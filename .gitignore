@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+backend/model_artifacts/
+backend/.env
+
+# Node
+node_modules/
+.next/
+frontend/.env*
+!frontend/.env.example
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db

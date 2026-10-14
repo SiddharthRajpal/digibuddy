@@ -1,0 +1,100 @@
+.scale {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.legend {
+  display: flex;
+  width: 100%;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.reading {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-hand);
+  font-size: 18px;
+  line-height: 20px;
+  color: var(--ink-soft);
+}
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.slot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1.15;
+  min-height: 36px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--stroke);
+  background: var(--page-shade);
+  cursor: pointer;
+  transition: transform var(--press-duration) ease-out;
+}
+
+.slot:hover {
+  background: color-mix(in srgb, var(--slot-fill) 45%, var(--page-shade));
+}
+
+.number {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.selected {
+  background: var(--slot-fill);
+  box-shadow: 0 0 0 3px var(--sky), var(--shadow-paper);
+  transform: translateY(-2px);
+}
+
+.weather .selected .number {
+  color: var(--on-weather);
+}
+
+.plain .selected .number {
+  color: var(--ink);
+}
+
+/* Native radio focus moves the ring onto the visible slot. */
+.slot:has(input:focus-visible) {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.ends {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-hand);
+  font-size: 18px;
+  line-height: 20px;
+  color: var(--ink-soft);
+}
+
+.error {
+  color: var(--brick);
+  font-size: 14px;
+  line-height: 21px;
+}
+
+@media (max-width: 420px) {
+  .slots {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .slot {
+    aspect-ratio: auto;
+    min-height: 44px;
+  }
+}

@@ -1,0 +1,21 @@
+.notes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-1);
+}
+
+.polaroids {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  padding: var(--space-3) var(--space-2);
+}
+
+.polaroids figure {
+  width: 160px;
+}
+
+.polaroids svg {
+  color: var(--stroke);
+}

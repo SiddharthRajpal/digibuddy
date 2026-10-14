@@ -1,0 +1,44 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: digibuddy
+      POSTGRES_PASSWORD: digibuddy
+      POSTGRES_DB: digibuddy
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U digibuddy -d digibuddy"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://digibuddy:digibuddy@db:5432/digibuddy
+      JWT_SECRET: ${JWT_SECRET:-dev-only-secret-change-me-0123456789}
+      MODEL_ARTIFACT_DIR: /data/model_artifacts
+      CORS_ORIGINS: '["http://localhost:3000"]'
+      ENABLE_SCHEDULER: "true"
+    volumes:
+      - artifacts:/data/model_artifacts
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        API_INTERNAL_URL: http://api:8000
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+
+volumes:
+  db-data:
+  artifacts:

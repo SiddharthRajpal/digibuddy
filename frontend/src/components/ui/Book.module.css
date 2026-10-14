@@ -1,0 +1,245 @@
+.desk {
+  min-height: 100dvh;
+  padding: var(--space-4) var(--space-4) var(--space-7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top {
+  width: 100%;
+  max-width: 1180px;
+  display: flex;
+  justify-content: center;
+  padding-bottom: var(--space-3);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 26px;
+  line-height: 30px;
+  color: var(--desk-ink);
+  text-decoration: none;
+}
+
+/* Chapter tabs stick up from the top edge of the book. */
+.tabs {
+  width: 100%;
+  max-width: 1080px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabList {
+  display: flex;
+  gap: var(--space-1);
+  padding: 0 var(--space-5);
+  min-width: max-content;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: var(--space-2) var(--space-4) var(--space-3);
+  margin-bottom: -6px;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  background: var(--page-shade);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border: 2px solid var(--stroke);
+  border-bottom: 0;
+}
+
+.tabOn {
+  background: var(--page);
+  padding-bottom: calc(var(--space-3) + 4px);
+  transform: translateY(-4px);
+  position: relative;
+  z-index: 2;
+}
+
+.bookRow {
+  width: 100%;
+  max-width: 1180px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.book {
+  position: relative;
+  flex: 1;
+  max-width: 1080px;
+  display: grid;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-book);
+  background: var(--page);
+  perspective: 2000px;
+  z-index: 1;
+}
+
+.spread {
+  grid-template-columns: 1fr 1fr;
+}
+
+.single {
+  grid-template-columns: 1fr;
+  max-width: 640px;
+}
+
+.page {
+  position: relative;
+  min-width: 0;
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  background: var(--page);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.page[hidden] {
+  display: none;
+}
+
+/* Outer corners radius-lg, spine corners 4px. Gutter shading is the one gradient. */
+.pageLeft {
+  border-radius: var(--radius-lg) 4px 4px var(--radius-lg);
+  background-image: linear-gradient(to left, var(--page-shade), transparent 36px);
+}
+
+.pageRight {
+  border-radius: 4px var(--radius-lg) var(--radius-lg) 4px;
+  background-image: linear-gradient(to right, var(--page-shade), transparent 36px);
+}
+
+.single .page {
+  border-radius: var(--radius-lg);
+  background-image: none;
+}
+
+/* Ribbon bookmark in `fur`. */
+.ribbon {
+  position: absolute;
+  top: -6px;
+  right: 56px;
+  width: 18px;
+  height: 64px;
+  background: var(--fur);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Arrow tabs on the sides of the book. */
+.arrow {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 88px;
+  margin-top: 120px;
+  border: 2px solid var(--marigold-press);
+  background: var(--marigold);
+  color: var(--on-marigold);
+  box-shadow: var(--shadow-stamp);
+  text-decoration: none;
+}
+
+.arrowLeft {
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+.arrowRight {
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.arrowSpacer {
+  flex: none;
+  width: 44px;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding-top: var(--space-5);
+}
+
+.pagerBtn {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--marigold-press);
+  background: var(--marigold);
+  color: var(--on-marigold);
+  box-shadow: var(--shadow-stamp);
+  cursor: pointer;
+}
+
+.pagerSpacer {
+  width: 48px;
+}
+
+.counter {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--desk-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.pageTitle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.lede {
+  color: var(--ink-soft);
+}
+
+@media (max-width: 720px) {
+  .desk {
+    padding: var(--space-3) var(--space-4) var(--space-6);
+  }
+  .tabList {
+    padding: 0 var(--space-2);
+  }
+  .tab {
+    padding-inline: var(--space-3);
+  }
+  .bookRow {
+    gap: 0;
+  }
+  .arrowSpacer {
+    display: none;
+  }
+  .book,
+  .spread {
+    grid-template-columns: 1fr;
+  }
+  .page {
+    padding: var(--space-5) var(--space-4);
+  }
+  .pageLeft,
+  .pageRight {
+    border-radius: var(--radius-lg);
+    background-image: none;
+  }
+  .ribbon {
+    right: 28px;
+  }
+}

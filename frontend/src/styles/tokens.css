@@ -1,0 +1,226 @@
+/*
+ * DigiBuddy Storybook design tokens.
+ * Generated from the design system's tokens.json. Do not edit by hand:
+ * update the design system and regenerate.
+ *
+ * Themes: Daylight (default) and Lamplight (reading at night).
+ * Lamplight applies with [data-theme="lamplight"], or with the system dark
+ * preference when the user picked "Match my device" ([data-theme="system"]).
+ */
+
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+  --flip-duration: 700ms;
+  --press-duration: 90ms;
+  --font-display: var(--font-grandstander), "Grandstander", "Comic Neue", ui-rounded, system-ui, sans-serif;
+  --font-body: var(--font-literata), "Literata", Georgia, "Times New Roman", serif;
+  --font-hand: var(--font-gaegu), "Gaegu", "Comic Neue", "Bradley Hand", cursive;
+}
+
+:root,
+[data-theme="daylight"] {
+  color-scheme: light;
+  --desk: #8f6142;
+  --desk-grain: #7f5437;
+  --desk-ink: #fbefdc;
+  --page: #f7e9d2;
+  --page-shade: #eedabb;
+  --paper: #fffaf0;
+  --ink: #3b2a1f;
+  --ink-soft: #6e5442;
+  --line: #dcc29d;
+  --stroke: #5e3f2b;
+  --fur: #b57b52;
+  --marigold: #f0923a;
+  --marigold-press: #c96d1e;
+  --on-marigold: #3a1d08;
+  --blossom: #e8687c;
+  --on-blossom: #3a0f17;
+  --petal: #f9d6d4;
+  --sky: #89a5e6;
+  --sky-tint: #e1e8fb;
+  --sprout: #a7b43c;
+  --sprout-tint: #eef0c9;
+  --brick: #a8382a;
+  --focus: #2f5bd3;
+  --tape: rgba(236, 214, 160, 0.78);
+  --weather-1: #8fa0c9;
+  --weather-2: #b3c3dd;
+  --weather-3: #ddd0b0;
+  --weather-4: #f2cd6a;
+  --weather-5: #f4a35a;
+  --on-weather: #2a1c15;
+  --shadow-paper: 0 1px 0 #d9bf98, 0 4px 10px rgba(74, 44, 22, 0.14);
+  --shadow-book: 0 3px 0 #c9a77c, 0 6px 0 #b8925f, 0 18px 40px rgba(58, 30, 12, 0.35);
+  --shadow-stamp: 0 3px 0 #c96d1e;
+}
+
+[data-theme="lamplight"] {
+  color-scheme: dark;
+  --desk: #241811;
+  --desk-grain: #1c120c;
+  --desk-ink: #f1e2cc;
+  --page: #30261f;
+  --page-shade: #3a2f27;
+  --paper: #40342b;
+  --ink: #f4e8d6;
+  --ink-soft: #cdb9a0;
+  --line: #5a4a3c;
+  --stroke: #c4a586;
+  --fur: #c8936a;
+  --marigold: #f3a256;
+  --marigold-press: #c47a33;
+  --on-marigold: #2b1505;
+  --blossom: #f08d9d;
+  --on-blossom: #2e0b12;
+  --petal: #4d3236;
+  --sky: #8ea6e3;
+  --sky-tint: #2d3550;
+  --sprout: #bcc95c;
+  --sprout-tint: #3a3d22;
+  --brick: #f08a78;
+  --focus: #9fb8ff;
+  --tape: rgba(206, 182, 128, 0.55);
+  --weather-1: #7f90bb;
+  --weather-2: #a6b6d2;
+  --weather-3: #d3c6a6;
+  --weather-4: #eac466;
+  --weather-5: #ee9f5a;
+  --on-weather: #2a1c15;
+  --shadow-paper: 0 1px 0 #1d1510, 0 4px 10px rgba(0, 0, 0, 0.35);
+  --shadow-book: 0 3px 0 #2a2019, 0 6px 0 #1f1712, 0 18px 40px rgba(0, 0, 0, 0.55);
+  --shadow-stamp: 0 3px 0 #c47a33;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="system"] {
+    color-scheme: dark;
+    --desk: #241811;
+    --desk-grain: #1c120c;
+    --desk-ink: #f1e2cc;
+    --page: #30261f;
+    --page-shade: #3a2f27;
+    --paper: #40342b;
+    --ink: #f4e8d6;
+    --ink-soft: #cdb9a0;
+    --line: #5a4a3c;
+    --stroke: #c4a586;
+    --fur: #c8936a;
+    --marigold: #f3a256;
+    --marigold-press: #c47a33;
+    --on-marigold: #2b1505;
+    --blossom: #f08d9d;
+    --on-blossom: #2e0b12;
+    --petal: #4d3236;
+    --sky: #8ea6e3;
+    --sky-tint: #2d3550;
+    --sprout: #bcc95c;
+    --sprout-tint: #3a3d22;
+    --brick: #f08a78;
+    --focus: #9fb8ff;
+    --tape: rgba(206, 182, 128, 0.55);
+    --weather-1: #7f90bb;
+    --weather-2: #a6b6d2;
+    --weather-3: #d3c6a6;
+    --weather-4: #eac466;
+    --weather-5: #ee9f5a;
+    --on-weather: #2a1c15;
+    --shadow-paper: 0 1px 0 #1d1510, 0 4px 10px rgba(0, 0, 0, 0.35);
+    --shadow-book: 0 3px 0 #2a2019, 0 6px 0 #1f1712, 0 18px 40px rgba(0, 0, 0, 0.55);
+    --shadow-stamp: 0 3px 0 #c47a33;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --flip-duration: 0ms;
+    --press-duration: 0ms;
+  }
+}
+
+/* Type styles */
+.t-number-xl {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 60px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.t-title-xl {
+  font-family: var(--font-display);
+  font-size: 36px;
+  line-height: 40px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.t-title-lg {
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 30px;
+  font-weight: 700;
+}
+
+.t-title-md {
+  font-family: var(--font-display);
+  font-size: 19px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.t-label {
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.t-body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 25px;
+  font-weight: 400;
+}
+
+.t-body-sm {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+}
+
+.t-caption {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.t-note {
+  font-family: var(--font-hand);
+  font-size: 22px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.t-note-sm {
+  font-family: var(--font-hand);
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 400;
+}

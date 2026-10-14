@@ -1,0 +1,77 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--paper);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-paper);
+}
+
+.dayHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.edit {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  color: var(--stroke);
+}
+
+.edit:hover {
+  background: var(--page-shade);
+}
+
+.values {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.value {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.value dt {
+  color: var(--ink-soft);
+}
+
+.value dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--ink);
+}
+
+.value dd svg {
+  color: var(--stroke);
+}
+
+.guess {
+  font-family: var(--font-hand);
+  font-size: 18px;
+  line-height: 20px;
+  color: var(--ink-soft);
+}
+
+.tags {
+  font-family: var(--font-hand);
+  font-size: 18px;
+  line-height: 20px;
+  color: var(--ink-soft);
+}

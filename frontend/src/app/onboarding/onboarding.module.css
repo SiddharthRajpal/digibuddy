@@ -1,0 +1,49 @@
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  counter-reset: step;
+}
+
+.steps li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-3) var(--space-4) var(--space-3) 56px;
+  position: relative;
+  background: var(--paper);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-paper);
+}
+
+.steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  left: var(--space-3);
+  top: var(--space-3);
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-pill);
+  background: var(--sprout-tint);
+  border: 2px solid var(--stroke);
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.agree {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  cursor: pointer;
+}
+
+.agree input {
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  accent-color: var(--sprout);
+  flex: none;
+}
