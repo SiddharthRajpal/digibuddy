@@ -15,5 +15,7 @@ pandas>=2.2
 scipy>=1.13
 scikit-learn>=1.5
 joblib>=1.4
+# Timezone database: slim Docker images and Windows have none built in.
+tzdata>=2024.1
 # Optional, the system works without it:
 lightgbm>=4.3

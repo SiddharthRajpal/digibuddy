@@ -21,6 +21,7 @@ dependencies = [
   "scipy>=1.13",
   "scikit-learn>=1.5",
   "joblib>=1.4",
+  "tzdata>=2024.1",
 ]
 
 [project.optional-dependencies]
