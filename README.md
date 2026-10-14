@@ -21,9 +21,6 @@ and insights. API docs: http://localhost:8000/docs.
 Optional: `python -m scripts.seed --all-profiles` also creates `weak@digibuddy.app` and
 `noise@digibuddy.app` (same password) to compare how the twin behaves.
 
-For the quokka mascot, copy the design system's `Mascot/` cut-outs into
-`frontend/public/mascot/` (see the README there).
-
 ## Local development
 
 **Backend** (Python 3.12, Postgres 16):

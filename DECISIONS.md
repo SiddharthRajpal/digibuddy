@@ -13,9 +13,8 @@ didn't anticipate. Each entry: what we chose, and why.
 - **Component code was written from the design system's README**, because no component
   bundle was published with it. Tokens are generated from `frontend/design/tokens.json`
   (`npm run tokens`).
-- **The quokka image is not bundled.** It was not available to copy. Drop the cut-outs
-  into `frontend/public/mascot/` (see the README there). Until then the speech bubbles
-  show without the picture. The quokka is never redrawn.
+- **The quokka cut-outs** come from the design system's assets, copied unchanged into
+  `frontend/public/mascot/`. The quokka is never redrawn or recolored.
 
 ## Data model
 
