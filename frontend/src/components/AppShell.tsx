@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 import { Spread } from "@/components/book/Book";
 import { LoadingNote } from "@/components/ui/Controls";
@@ -39,12 +39,18 @@ export function AppShell({ label, left, right }: AppShellProps) {
   );
 }
 
-/** Pages for signed-out visitors (sign in, sign up): bounce signed-in users home. */
+/**
+ * Pages for signed-out visitors (sign in, sign up): bounce visitors who arrive already
+ * signed in. Someone who signs in *here* is moved on by the form itself (to onboarding or
+ * where they were going), so this must not race it with a second navigation.
+ */
 export function PublicShell({ label, left, right }: { label: string; left: ReactNode; right?: ReactNode }) {
   const { status } = useAuth();
   const router = useRouter();
+  const wasSignedOut = useRef(false);
   useEffect(() => {
-    if (status === "authenticated") router.replace("/");
+    if (status === "anonymous") wasSignedOut.current = true;
+    if (status === "authenticated" && !wasSignedOut.current) router.replace("/");
   }, [status, router]);
   return <Spread label={label} left={left} right={right} startPage={1} />;
 }

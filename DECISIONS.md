@@ -106,8 +106,9 @@ didn't anticipate. Each entry: what we chose, and why.
   spread turns the page from that snapshot, forward or back by reading order
   (`routes.ts`). The turn holds the old page still until the new page's data has loaded
   (max 1s) and the window has scrolled to the top, so it always lands on a finished page.
-  The book keeps its size during a turn; it grows with the turn when the next page is
-  taller and settles afterwards when it is shorter. In-page changes (onboarding steps,
+  The book keeps its size during a turn: when the next page is taller it grows with the
+  turn; when it is shorter the book first compresses to the new height (with the current
+  page in it), then the page turns. In-page changes (onboarding steps,
   "page saved", phone page turns) use `useBook().turn()`. Same-page swaps cross-fade.
   Reduced motion turns all of this off. Frame-by-frame screen recordings were used to
   check there are no single-frame jumps.

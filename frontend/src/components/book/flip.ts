@@ -242,18 +242,57 @@ function animate(
 ): void {
   const duration = flipDuration();
   const isFade = kind === "fade";
+  // Longer drops take a little longer, so the book always shrinks at a calm pace.
+  const COMPRESS_MS = Math.round(Math.min(720, 300 + 0.4 * Math.max(0, from.bookH - to.bookH)));
+  const COMPRESS_EASE = "cubic-bezier(0.45, 0, 0.25, 1)";
 
-  // Growing happens during the turn (so new content is never clipped). Shrinking waits
-  // until the page has landed, then the book settles to its new size: a book doesn't
-  // change size mid-turn.
-  const grows = to.bookH >= from.bookH;
-  const heightDelay = isFade || grows ? 0 : duration;
-  const heightMs = isFade ? 320 : grows ? duration : 420;
+  // Going to a shorter page: first compress the book (with the current page in it) to
+  // the new height, then turn the page at that size.
+  if (!isFade && to.bookH < from.bookH - 1) {
+    const target = (p: PageShot) => Math.max(0, Math.min(p.h, to.bookH - p.y));
+    const shrink = book.animate([{ height: `${from.bookH}px` }, { height: `${to.bookH}px` }], {
+      duration: COMPRESS_MS,
+      easing: COMPRESS_EASE,
+      fill: "forwards",
+    });
+    animations.push(shrink);
+    for (const p of from.pages) {
+      layer.append(place(p.node, p.x, p.y, p.w, p.h));
+      p.node.style.overflow = "hidden";
+      if (target(p) < p.h - 1) {
+        animations.push(
+          p.node.animate([{ height: `${p.h}px` }, { height: `${target(p)}px` }], {
+            duration: COMPRESS_MS,
+            easing: COMPRESS_EASE,
+            fill: "forwards",
+          }),
+        );
+      }
+    }
+    shrink.finished.then(
+      () => {
+        if (isDone()) return;
+        book.style.height = `${to.bookH}px`; // stays at the new size for the turn
+        layer.replaceChildren();
+        layer.style.height = `${to.bookH}px`;
+        const compressed: Shot = {
+          ...from,
+          bookH: to.bookH,
+          pages: from.pages.map((p) => ({ ...p, h: target(p) })),
+        };
+        animate(book, layer, compressed, to, kind, animations, isDone, cleanup);
+      },
+      () => undefined,
+    );
+    return;
+  }
+
+  // Same size or taller: the book grows during the turn, so new content is never clipped.
+  const heightMs = isFade ? 320 : duration;
   const height = book.animate([{ height: `${from.bookH}px` }, { height: `${to.bookH}px` }], {
     duration: heightMs,
-    delay: heightDelay,
-    easing: grows ? ROTATE_EASE : "cubic-bezier(0.3, 0, 0.2, 1)",
-    fill: "both",
+    easing: isFade ? COMPRESS_EASE : ROTATE_EASE,
+    fill: "forwards",
   });
   animations.push(height);
 
@@ -265,9 +304,8 @@ function animate(
     animations.push(
       p.node.animate([{ height: `${p.h}px` }, { height: `${Math.max(0, target)}px` }], {
         duration: heightMs,
-        delay: heightDelay,
-        easing: grows ? ROTATE_EASE : "cubic-bezier(0.3, 0, 0.2, 1)",
-        fill: "both",
+        easing: COMPRESS_EASE,
+        fill: "forwards",
       }),
     );
   };
@@ -406,10 +444,7 @@ function animate(
   if (fadeKeys) {
     animations.push(leaf.animate(fadeKeys, { duration, easing: "linear", fill: "forwards" }));
   }
-  // Settle once the page has landed and the book has reached its new size.
-  turn.onfinish = () => {
-    height.finished.then(finish, () => undefined);
-  };
+  turn.onfinish = finish;
 }
 
 /** Turn immediately with both snapshots in hand (no waiting). */
