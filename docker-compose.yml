@@ -19,7 +19,7 @@ services:
       DATABASE_URL: postgresql+asyncpg://digibuddy:digibuddy@db:5432/digibuddy
       JWT_SECRET: ${JWT_SECRET:-dev-only-secret-change-me-0123456789}
       MODEL_ARTIFACT_DIR: /data/model_artifacts
-      CORS_ORIGINS: '["http://localhost:3000"]'
+      CORS_ORIGINS: '["http://localhost:${WEB_PORT:-3000}"]'
       ENABLE_SCHEDULER: "true"
     volumes:
       - artifacts:/data/model_artifacts
@@ -27,7 +27,7 @@ services:
       db:
         condition: service_healthy
     ports:
-      - "8000:8000"
+      - "${API_PORT:-8000}:8000"
 
   frontend:
     build:
@@ -37,7 +37,7 @@ services:
     depends_on:
       - api
     ports:
-      - "3000:3000"
+      - "${WEB_PORT:-3000}:3000"
 
 volumes:
   db-data:

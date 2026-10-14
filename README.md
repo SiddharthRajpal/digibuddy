@@ -16,6 +16,10 @@ Install Docker Desktop and open it, then double-click:
   choose **Open**, then **Open** again. If it says it can't be run, open Terminal in this folder and
   run `chmod +x *.command` once.
 
+If port 3000 or 8000 is taken on your machine, pick others, e.g.
+`WEB_PORT=3001 API_PORT=8001 docker compose up --build -d` (Mac/Linux) or
+`$env:WEB_PORT=3001; docker compose up --build -d` (PowerShell), then open http://localhost:3001.
+
 The script builds and starts everything (5-10 minutes the first time), creates the demo account
 once, and opens the app. Or run it by hand:
 
