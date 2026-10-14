@@ -1,9 +1,9 @@
-import { Book } from "@/components/ui/Book";
+import { Spread } from "@/components/book/Book";
 import { ButtonLink } from "@/components/ui/Button";
 
 export default function NotFound() {
   return (
-    <Book
+    <Spread
       label="Page not found"
       left={
         <div className="stack">

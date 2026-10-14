@@ -1,3 +1,27 @@
+/* Folds away smoothly when closed: rows collapse while the note fades. */
+.wrap {
+  display: grid;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition:
+    grid-template-rows 360ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 240ms ease,
+    margin 360ms ease;
+}
+
+.inner {
+  min-height: 0;
+  padding: 14px 4px 4px;
+  margin: -14px -4px -4px;
+  overflow: clip;
+}
+
+.closing {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  margin-bottom: calc(-1 * var(--space-5));
+}
+
 .note {
   display: flex;
   flex-direction: column;

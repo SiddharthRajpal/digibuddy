@@ -159,5 +159,9 @@ hand-painted journal on a wooden desk.
 - Components live in `frontend/src/components/ui/` and only use tokens. Pages compose
   them and get data from hooks, so a redesign touches presentation only.
 - Fonts (Grandstander, Literata, Gaegu) load through `next/font`.
+- Motion: the book persists across routes and turns its pages with a real two-sided page
+  flip in the direction of travel (`src/components/book/`). Content inks in as it loads,
+  sections fold open, notes fold away, and themes fade. All of it respects
+  "reduce motion".
 
 See `DECISIONS.md` for every judgement call made while building this.

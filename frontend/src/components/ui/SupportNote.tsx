@@ -14,9 +14,18 @@ import styles from "./SupportNote.module.css";
  * quokka's `blossom`. Shown at the top of the page, before any forecast.
  */
 export function SupportNote({ support }: { support: Support }) {
-  const [open, setOpen] = useState(true);
-  if (!open) return null;
+  const [state, setState] = useState<"open" | "closing" | "closed">("open");
+  if (state === "closed") return null;
   return (
+    <div
+      className={[styles.wrap, state === "closing" ? styles.closing : ""].join(" ")}
+      onTransitionEnd={(e) => {
+        if (state === "closing" && e.target === e.currentTarget && e.propertyName === "grid-template-rows") {
+          setState("closed");
+        }
+      }}
+    >
+    <div className={styles.inner}>
     <StickyNote tone="petal" tape as="section" aria-label="Support" className={styles.note}>
       <div className={styles.head}>
         <Icon name="heart" className={styles.heart} />
@@ -46,10 +55,17 @@ export function SupportNote({ support }: { support: Support }) {
         ))}
       </ul>
       <div className={styles.actions}>
-        <Button variant="quiet" onClick={() => setOpen(false)}>
+        <Button
+          variant="quiet"
+          onClick={() =>
+            setState(window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "closed" : "closing")
+          }
+        >
           Close this note
         </Button>
       </div>
     </StickyNote>
+    </div>
+    </div>
   );
 }

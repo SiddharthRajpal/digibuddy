@@ -3,32 +3,21 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, type ReactNode } from "react";
 
-import { Book, type Chapter } from "@/components/ui/Book";
+import { Spread } from "@/components/book/Book";
 import { LoadingNote } from "@/components/ui/Controls";
 import { useAuth } from "@/lib/auth";
-import { todayIn } from "@/lib/dates";
-
-function chaptersFor(timeZone: string): Chapter[] {
-  return [
-    { href: "/", label: "Today", match: "/" },
-    { href: `/checkin/${todayIn(timeZone)}`, label: "Check-in", match: "/checkin" },
-    { href: "/history", label: "History", match: "/history" },
-    { href: "/twin", label: "Your twin", match: "/twin" },
-    { href: "/insights", label: "Insights", match: "/insights" },
-    { href: "/settings", label: "Settings", match: "/settings" },
-  ];
-}
 
 export interface AppShellProps {
   label: string;
   left: ReactNode;
   right?: ReactNode;
-  /** Show chapter tabs (signed-in chapters). */
-  chapters?: boolean;
 }
 
-/** Signed-in pages: redirects to sign in or onboarding as needed, then shows the book. */
-export function AppShell({ label, left, right, chapters = true }: AppShellProps) {
+/**
+ * Signed-in pages: sends visitors to sign in (or to onboarding) first, then shows the
+ * spread. The book itself lives in the root layout and never remounts.
+ */
+export function AppShell({ label, left, right }: AppShellProps) {
   const { status, user } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
@@ -40,16 +29,12 @@ export function AppShell({ label, left, right, chapters = true }: AppShellProps)
     }
   }, [status, user, router, pathname]);
 
-  if (status !== "authenticated" || !user) {
-    return <Book label="Loading" left={<LoadingNote label="Opening your book…" />} />;
-  }
-
+  const ready = status === "authenticated" && Boolean(user);
   return (
-    <Book
+    <Spread
       label={label}
-      left={left}
-      right={right}
-      chapters={chapters ? chaptersFor(user.timezone) : undefined}
+      left={ready ? left : <LoadingNote label="Opening your book…" />}
+      right={ready ? right : undefined}
     />
   );
 }
@@ -61,5 +46,5 @@ export function PublicShell({ label, left, right }: { label: string; left: React
   useEffect(() => {
     if (status === "authenticated") router.replace("/");
   }, [status, router]);
-  return <Book label={label} left={left} right={right} startPage={1} />;
+  return <Spread label={label} left={left} right={right} startPage={1} />;
 }

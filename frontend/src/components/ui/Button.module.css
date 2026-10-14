@@ -15,7 +15,9 @@
   cursor: pointer;
   transition:
     transform var(--press-duration) ease-out,
-    box-shadow var(--press-duration) ease-out;
+    box-shadow var(--press-duration) ease-out,
+    background-color 180ms ease,
+    opacity 180ms ease;
 }
 
 .button:disabled {

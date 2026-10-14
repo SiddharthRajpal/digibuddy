@@ -1,3 +1,5 @@
+/* ---- Desk and header ------------------------------------------------------------ */
+
 .desk {
   min-height: 100dvh;
   padding: var(--space-4) var(--space-4) var(--space-7);
@@ -23,12 +25,41 @@
   text-decoration: none;
 }
 
-/* Chapter tabs stick up from the top edge of the book. */
-.tabs {
+/* ---- Chapter tabs: stick up from the top edge of the book ----------------------- */
+
+/* The slot keeps its height whether or not tabs show, so the book never jumps. */
+.tabsSlot {
   width: 100%;
   max-width: 1080px;
+  min-height: 42px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.tabs {
+  width: 100%;
   overflow-x: auto;
   scrollbar-width: none;
+  animation: tabsIn 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.tabsLeaving {
+  animation: tabsOut 320ms ease-in both;
+  pointer-events: none;
+}
+
+@keyframes tabsIn {
+  from {
+    transform: translateY(28px);
+    opacity: 0;
+  }
+}
+
+@keyframes tabsOut {
+  to {
+    transform: translateY(28px);
+    opacity: 0;
+  }
 }
 
 .tabList {
@@ -55,9 +86,18 @@
   text-decoration: none;
   border: 2px solid var(--stroke);
   border-bottom: 0;
+  transition:
+    transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 280ms ease,
+    padding 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.tabOn {
+.tab:hover {
+  transform: translateY(-2px);
+}
+
+.tabOn,
+.tabOn:hover {
   background: var(--page);
   padding-bottom: calc(var(--space-3) + 4px);
   transform: translateY(-4px);
@@ -65,7 +105,10 @@
   z-index: 2;
 }
 
+/* ---- The book ------------------------------------------------------------------- */
+
 .bookRow {
+  position: relative;
   width: 100%;
   max-width: 1180px;
   display: flex;
@@ -74,25 +117,30 @@
   gap: var(--space-3);
 }
 
-.book {
+/* Book, page-turn layer and ribbon share one box, so the ribbon stays on top. */
+.bookWrap {
   position: relative;
   flex: 1;
+  min-width: 0;
   max-width: 1080px;
+  animation: bookIn 640ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.book {
+  position: relative;
   display: grid;
+  grid-template-columns: 1fr 1fr;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-book);
   background: var(--page);
-  perspective: 2000px;
   z-index: 1;
 }
 
-.spread {
-  grid-template-columns: 1fr 1fr;
-}
-
-.single {
-  grid-template-columns: 1fr;
-  max-width: 640px;
+@keyframes bookIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
 }
 
 .page {
@@ -102,13 +150,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
-  background: var(--page);
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
-}
-
-.page[hidden] {
-  display: none;
+  background-color: var(--page);
 }
 
 /* Outer corners radius-lg, spine corners 4px. Gutter shading is the one gradient. */
@@ -122,9 +164,39 @@
   background-image: linear-gradient(to right, var(--page-shade), transparent 36px);
 }
 
-.single .page {
-  border-radius: var(--radius-lg);
-  background-image: none;
+/* A page left blank: ruled lines only (decoration). */
+.blankPage {
+  background-image:
+    linear-gradient(to right, var(--page-shade), transparent 36px),
+    repeating-linear-gradient(to bottom, transparent 0 31px, var(--line) 31px 32px);
+  background-position: 0 0, 0 88px;
+  background-repeat: no-repeat, repeat;
+  background-size: 100% 100%, 100% calc(100% - 120px);
+}
+
+/* Content inks in as it arrives (first two levels), so loading never pops. */
+.page > :global(*),
+.page > :global(*) > :global(*) {
+  animation: inkIn 380ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.page > :global(*:nth-child(2)) {
+  animation-delay: 40ms;
+}
+
+.page > :global(*:nth-child(3)) {
+  animation-delay: 80ms;
+}
+
+.page > :global(*:nth-child(n + 4)) {
+  animation-delay: 120ms;
+}
+
+@keyframes inkIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
 }
 
 /* Ribbon bookmark in `fur`. */
@@ -136,11 +208,12 @@
   height: 64px;
   background: var(--fur);
   clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
-  z-index: 3;
+  z-index: 6;
   pointer-events: none;
 }
 
-/* Arrow tabs on the sides of the book. */
+/* ---- Arrow tabs on the sides of the book ---------------------------------------- */
+
 .arrow {
   flex: none;
   display: grid;
@@ -153,6 +226,15 @@
   color: var(--on-marigold);
   box-shadow: var(--shadow-stamp);
   text-decoration: none;
+  animation: arrowIn 360ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  transition:
+    transform var(--press-duration) ease-out,
+    box-shadow var(--press-duration) ease-out;
+}
+
+.arrow:active {
+  transform: translateY(3px);
+  box-shadow: none;
 }
 
 .arrowLeft {
@@ -163,9 +245,34 @@
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
+.leaving {
+  animation: arrowOut 300ms ease-in both;
+  pointer-events: none;
+}
+
+@keyframes arrowIn {
+  from {
+    opacity: 0;
+    transform: scaleX(0.6);
+  }
+}
+
+@keyframes arrowOut {
+  to {
+    opacity: 0;
+    transform: scaleX(0.6);
+  }
+}
+
 .arrowSpacer {
   flex: none;
   width: 44px;
+}
+
+/* ---- Phone pager ------------------------------------------------------------------ */
+
+.pagerSlot {
+  display: none;
 }
 
 .pager {
@@ -187,6 +294,14 @@
   color: var(--on-marigold);
   box-shadow: var(--shadow-stamp);
   cursor: pointer;
+  transition:
+    transform var(--press-duration) ease-out,
+    box-shadow var(--press-duration) ease-out;
+}
+
+.pagerBtn:active {
+  transform: translateY(3px);
+  box-shadow: none;
 }
 
 .pagerSpacer {
@@ -201,6 +316,8 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* ---- Page headings ---------------------------------------------------------------- */
+
 .pageTitle {
   display: flex;
   flex-direction: column;
@@ -210,6 +327,8 @@
 .lede {
   color: var(--ink-soft);
 }
+
+/* ---- Phones: one page at a time --------------------------------------------------- */
 
 @media (max-width: 720px) {
   .desk {
@@ -224,15 +343,18 @@
   .bookRow {
     gap: 0;
   }
+  .arrow,
   .arrowSpacer {
     display: none;
   }
-  .book,
-  .spread {
+  .book {
     grid-template-columns: 1fr;
   }
   .page {
     padding: var(--space-5) var(--space-4);
+  }
+  .page[data-active="false"] {
+    display: none;
   }
   .pageLeft,
   .pageRight {
@@ -241,5 +363,21 @@
   }
   .ribbon {
     right: 28px;
+  }
+  .pagerSlot {
+    display: block;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs,
+  .tabsLeaving,
+  .bookWrap,
+  .arrow,
+  .leaving,
+  .page > :global(*),
+  .page > :global(*) > :global(*) {
+    animation: none;
   }
 }

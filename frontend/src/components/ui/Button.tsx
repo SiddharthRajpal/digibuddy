@@ -60,7 +60,7 @@ export interface ButtonLinkProps extends CommonProps {
 
 export function ButtonLink({ variant = "secondary", icon, iconRight, block, href, children, className }: ButtonLinkProps) {
   return (
-    <Link href={href} className={classes(variant, block, className)}>
+    <Link href={href} scroll={false} className={classes(variant, block, className)}>
       {icon ? <Icon name={icon} size={20} /> : null}
       <span>{children}</span>
       {iconRight ? <Icon name={iconRight} size={20} /> : null}

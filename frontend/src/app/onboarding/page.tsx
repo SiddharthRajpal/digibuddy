@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 
 import { AppShell } from "@/components/AppShell";
 import { MetricsEditor } from "@/components/MetricsEditor";
-import { PageTitle } from "@/components/ui/Book";
+import { PageTitle, useBook } from "@/components/ui/Book";
 import { Button } from "@/components/ui/Button";
 import { ErrorNote } from "@/components/ui/Controls";
 import { StickyNote } from "@/components/ui/Paper";
@@ -20,6 +20,9 @@ import styles from "./onboarding.module.css";
 /** Three pages, one idea each: how it works, the promise (not a medical device), your setup. */
 export default function OnboardingPage() {
   const [step, setStep] = useState(0);
+  const { turn } = useBook();
+  // Each step is a page of the book: moving between them turns the page.
+  const goTo = (n: number) => turn(n > step ? "forward" : "back", () => setStep(n));
   const { user } = useAuth();
   const meta = useMeta();
   const update = useUpdateMe();
@@ -55,7 +58,7 @@ export default function OnboardingPage() {
           <span className="t-title-md">I get better at reading you</span> Each evening I compare my guess with your page and learn from the gap.
         </li>
       </ol>
-      <Button iconRight="arrow-right" onClick={() => setStep(1)}>
+      <Button iconRight="arrow-right" onClick={() => goTo(1)}>
         Next
       </Button>
     </div>,
@@ -77,10 +80,10 @@ export default function OnboardingPage() {
         <span>I understand DigiBuddy is for reflection, not medical advice.</span>
       </label>
       <div className="row">
-        <Button variant="quiet" icon="arrow-left" onClick={() => setStep(0)}>
+        <Button variant="quiet" icon="arrow-left" onClick={() => goTo(0)}>
           Back
         </Button>
-        <Button iconRight="arrow-right" disabled={!agreed} onClick={() => setStep(2)}>
+        <Button iconRight="arrow-right" disabled={!agreed} onClick={() => goTo(2)}>
           Next
         </Button>
       </div>
@@ -104,7 +107,7 @@ export default function OnboardingPage() {
       </section>
       {update.error ? <ErrorNote message={update.error.message} /> : null}
       <div className="row">
-        <Button variant="quiet" icon="arrow-left" onClick={() => setStep(1)}>
+        <Button variant="quiet" icon="arrow-left" onClick={() => goTo(1)}>
           Back
         </Button>
         <Button iconRight="arrow-right" loading={update.isPending} onClick={finish}>
@@ -114,5 +117,5 @@ export default function OnboardingPage() {
     </div>,
   ];
 
-  return <AppShell label="Welcome" chapters={false} left={pages[step]} />;
+  return <AppShell label="Welcome" left={pages[step]} />;
 }

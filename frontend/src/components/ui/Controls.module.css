@@ -15,6 +15,14 @@
   font-weight: 600;
   letter-spacing: 0.02em;
   cursor: pointer;
+  transition:
+    background-color 200ms ease,
+    box-shadow 200ms ease,
+    transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.chip:active {
+  transform: scale(0.96);
 }
 
 .chipOn {
@@ -182,6 +190,7 @@ details[open] > .summary .chev {
 }
 
 .sectionBody {
+  animation: sectionIn 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -269,4 +278,17 @@ details[open] > .summary .chev {
   border-radius: var(--radius-md);
   background: var(--page-shade);
   text-align: center;
+}
+
+@keyframes sectionIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sectionBody {
+    animation: none;
+  }
 }

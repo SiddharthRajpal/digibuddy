@@ -6,7 +6,7 @@ import { useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { DetailsFields, FeelingsFields } from "@/components/checkin/CheckInFields";
 import { useCheckInForm, type CheckInFormApi } from "@/components/checkin/useCheckInForm";
-import { PageTitle } from "@/components/ui/Book";
+import { PageTitle, useBook } from "@/components/ui/Book";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { ErrorNote, LoadingNote } from "@/components/ui/Controls";
 import { CompareNote } from "@/components/ui/ForecastCard";
@@ -88,9 +88,10 @@ function Saved({ result, date }: { result: CheckInResult; date: string }) {
 function Editor({ date, existing }: { date: string; existing: CheckIn | null }) {
   const router = useRouter();
   const [result, setResult] = useState<CheckInResult | null>(null);
+  const { turn } = useBook();
   const metrics = useMetrics();
   const api = useCheckInForm(date, existing, (r) => {
-    if (r) setResult(r);
+    if (r) turn("forward", () => setResult(r));
     else router.push("/history");
   });
 

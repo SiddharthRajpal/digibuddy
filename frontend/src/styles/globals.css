@@ -140,3 +140,114 @@ svg {
 .soft {
   color: var(--ink-soft);
 }
+
+/* ---- Page-turn overlay (see components/book/flip.ts) ------------------------------ */
+
+.book-flip-layer {
+  position: absolute;
+  z-index: 4;
+  pointer-events: none;
+  perspective: 2400px;
+  perspective-origin: 50% 40%;
+}
+
+.book-flip-layer:empty {
+  display: none;
+}
+
+/* Clones are a still picture of the page: nothing inside them animates on its own. */
+.book-flip-layer * {
+  animation: none !important;
+  transition: none !important;
+}
+
+.book-flip-leaf {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.book-flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--line) 60%, transparent);
+}
+
+.book-flip-back {
+  transform: rotateY(180deg);
+}
+
+/* The back of a single page on phones: plain paper. */
+.book-flip-paper {
+  background:
+    linear-gradient(to left, var(--page-shade), transparent 40px),
+    var(--page);
+  border-radius: var(--radius-lg);
+}
+
+/* Curl shading on a turning face, darkest at the spine side. */
+.book-flip-shade {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.book-flip-shade-left {
+  background: linear-gradient(to right, rgba(40, 22, 8, 0.28), rgba(40, 22, 8, 0.06) 55%, rgba(40, 22, 8, 0.12));
+}
+
+.book-flip-shade-right {
+  background: linear-gradient(to left, rgba(40, 22, 8, 0.28), rgba(40, 22, 8, 0.06) 55%, rgba(40, 22, 8, 0.12));
+}
+
+/* Shadow the lifting page casts on the page it reveals. */
+.book-flip-cast {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.book-flip-cast-left {
+  background: linear-gradient(to right, rgba(40, 22, 8, 0.3), transparent 70%);
+}
+
+.book-flip-cast-right {
+  background: linear-gradient(to left, rgba(40, 22, 8, 0.3), transparent 70%);
+}
+
+/* Smooth theme switches: briefly let colors transition everywhere. */
+html.theme-fade,
+html.theme-fade *,
+html.theme-fade *::before,
+html.theme-fade *::after {
+  transition:
+    background-color 420ms ease,
+    color 420ms ease,
+    border-color 420ms ease,
+    fill 420ms ease,
+    stroke 420ms ease,
+    box-shadow 420ms ease !important;
+}
+
+/* Collapsible sections open and close smoothly where the browser supports it. */
+:root {
+  interpolate-size: allow-keywords;
+}
+
+details::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 320ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    content-visibility 320ms allow-discrete;
+}
+
+details[open]::details-content {
+  block-size: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  details::details-content {
+    transition: none;
+  }
+}

@@ -24,7 +24,11 @@ export function useTheme(): [ThemeChoice, (t: ThemeChoice) => void] {
   useEffect(() => setThemeState(readTheme()), []);
   const setTheme = useCallback((t: ThemeChoice) => {
     setThemeState(t);
+    // Let every color glide to the new theme instead of snapping.
+    const root = document.documentElement;
+    root.classList.add("theme-fade");
     applyTheme(t);
+    window.setTimeout(() => root.classList.remove("theme-fade"), 460);
     try {
       window.localStorage.setItem(KEY, t);
     } catch {

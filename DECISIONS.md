@@ -100,6 +100,19 @@ didn't anticipate. Each entry: what we chose, and why.
   re-exported with friendly names from `src/types/api.ts`.
 - Pages are client components: data comes from the API with a token held in memory, so
   server rendering would add nothing.
+- **Page turns.** The book (desk, tabs, arrows, book) lives in the root layout and never
+  remounts; each page renders a `<Spread>` into it (`components/book/`). On a route
+  change the old spread snapshots its pages just before React removes them, and the new
+  spread turns the page from that snapshot, forward or back by reading order
+  (`routes.ts`). The turn holds the old page still until the new page's data has loaded
+  (max 1s) and the window has scrolled to the top, so it always lands on a finished page.
+  The book keeps its size during a turn; it grows with the turn when the next page is
+  taller and settles afterwards when it is shorter. In-page changes (onboarding steps,
+  "page saved", phone page turns) use `useBook().turn()`. Same-page swaps cross-fade.
+  Reduced motion turns all of this off. Frame-by-frame screen recordings were used to
+  check there are no single-frame jumps.
+- Wide screens always show a two-page spread (a blank ruled page when a screen has only
+  one), so the book never changes width between pages.
 - On phones the book shows one page at a time. Sign-in and sign-up open on the form page;
   other chapters open on page 1.
 - Insights is a sixth chapter tab (the design README lists five tabs, but also lists
